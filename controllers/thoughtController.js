@@ -7,7 +7,7 @@ module.exports = {
             .catch((error) => res.status(500).json(error));
     },
     getThoughtById(req, res) {
-        Thought.findById(req.params.id)
+        Thought.findById(req.params.thoughtId)
             .select('-__v')
             .then((user) =>
                 !user
