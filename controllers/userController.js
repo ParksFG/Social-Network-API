@@ -34,5 +34,17 @@ module.exports = {
             )
             .catch((error) => res.status(500).json(error));
     },
-       
+    deleteUserById(req, res) {
+        User.findByIdAndDelete(
+            req.params.id
+        )
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: 'No user found with that ID '})
+                    : res.json({ Alert: 'User deleted' })
+            )
+            .catch((error) => res.status(500).json(error));
+    },
+    // POST to add friend to friend's list
+    // DELETE to remove friend from friend's list
 }
