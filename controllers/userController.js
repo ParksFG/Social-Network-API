@@ -23,7 +23,7 @@ module.exports = {
     },
     updateUserById(req, res) {
         User.findByIdAndUpdate(
-            req.params.id,
+            req.params.userId,
             { $set: req.body },
             { runValidators: true, new: true }
         )
@@ -37,7 +37,7 @@ module.exports = {
     deleteUserById(req, res) {
         // Add deleting users thoughts
         User.findByIdAndDelete(
-            req.params.id
+            req.params.userId
         )
             .then((user) =>
                 !user
@@ -48,7 +48,7 @@ module.exports = {
     },
     addFriend(req, res) {
         User.findByIdAndUpdate(
-            req.params.id,
+            req.params.userId,
             { $push: { friends: params.friendId }},
             { new: true }
         )
@@ -61,7 +61,7 @@ module.exports = {
     },
     deleteFriend(req, res) {
         User.findByIdAndUpdate(
-            req.params.id,
+            req.params.userId,
             { $pull: { friends: params.friendId }},
             { new: true }
         )
