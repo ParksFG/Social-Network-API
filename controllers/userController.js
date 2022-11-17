@@ -35,6 +35,7 @@ module.exports = {
             .catch((error) => res.status(500).json(error));
     },
     deleteUserById(req, res) {
+        // Add deleting users thoughts
         User.findByIdAndDelete(
             req.params.id
         )
@@ -45,6 +46,30 @@ module.exports = {
             )
             .catch((error) => res.status(500).json(error));
     },
-    // POST to add friend to friend's list
-    // DELETE to remove friend from friend's list
-}
+    addFriend(req, res) {
+        User.findByIdAndUpdate(
+            req.params.id,
+            { $push: { friends: params.friendId }},
+            { new: true }
+        )
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: 'No user found with that ID '})
+                    : res.json(user)
+            )
+            .catch((error) => res.status(500).json(error));
+    },
+    deleteFriend(req, res) {
+        User.findByIdAndUpdate(
+            req.params.id,
+            { $pull: { friends: params.friendId }},
+            { new: true }
+        )
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: 'No user found with that ID '})
+                    : res.json(user)
+            )
+            .catch((error) => res.status(500).json(error));
+    }
+};
